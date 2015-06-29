@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+  
+ <hibernate-mapping default-lazy="true">  
+  <class name="package1.CpaTable" table="mpesa_platform.wl_trial_bal_report_acct_wise_recon">
+    <id name="id">  
+     <generator class="assigned"></generator>  
+    </id>  
+    <property name="Circle" type="string" column="CIRCLE" />            
+    <property name="AccNo" column="ACCOUNT_NUMBER" type="string"/>  
+    <property name="CustName" column="CUSTOMER_NAME" type="string"/>  
+    <property name="OpenBal" column="OPENING_BALANCE" type="double"/>
+	<property name="Debit" column="TOTAL_DEBIT_AMT" type="double"/>
+	<property name="Credit" column="TOTAL_CREDIT_AMT" type="double"/>
+	<property name="CloseBal" column="CLOSING_BALANCE" type="double"/>
+		            
+  </class>  
+            
+ </hibernate-mapping>  
