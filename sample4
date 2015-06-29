@@ -1,0 +1,106 @@
+package package1;
+
+import java.util.Properties;  
+
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.*;  
+import javax.mail.internet.*;  
+
+public class MailSender {
+	
+	public static Properties configProperties(){
+		   
+         //Address[] to = new Address[] {InternetAddress.parse("manojkumar.tiwari@tcs.com"),InternetAddress("parag.thale@tcs.com")};
+
+		  Properties props = new Properties();  
+		  props.put("mail.smtp.host", "10.87.152.16");  
+		  props.put("mail.smtp.socketFactory.port", "25");  
+		  props.put("mail.smtp.socketFactory.class",  
+		            "javax.net.ssl.SSLSocketFactory");  
+		  props.put("mail.smtp.auth", "false");  
+		  props.put("mail.smtp.port", "25");  
+		  props.put("mail.smtp.connectiontimeout","1500");
+		  return props;
+	}
+	
+	public static MimeMessage createMessageHeader(MimeMessage message){
+		   String to="tejaswini.gade@tcs.com"; 
+		    
+		   try {
+			message.setFrom(new InternetAddress("mpesa@vodafone.in"));
+			  message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(to));  
+			   message.setSubject("CPA Automation");  
+		} catch (AddressException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+		return message;
+	}
+	
+	public static MimeBodyPart createMessageBody(MimeBodyPart msgbody,String txt)
+	{
+		try {
+			msgbody.setText(txt);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		} 
+		return msgbody;
+	}
+
+	public static MimeBodyPart addAttachment(MimeBodyPart msgbody,String location,String filename){
+		 
+		   FileDataSource source = new FileDataSource(location);
+		   try {
+			msgbody.setDataHandler(new DataHandler(source));
+			 msgbody.setFileName(filename);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	
+		  return msgbody;
+	}
+	 
+	public static void SendAttachmentMail(){
+	  
+	
+	 //Get the session object  
+	  Session session = Session.getInstance(configProperties());
+	   
+	  //Compose message  
+	  try {  
+	  
+	   MimeMessage message = new MimeMessage(session); 
+	   
+	   message = createMessageHeader(message);
+	   
+	   Multipart multipart = new MimeMultipart();
+	   
+	   MimeBodyPart messageBodyPart = new MimeBodyPart();
+	   
+	   messageBodyPart = createMessageBody(messageBodyPart,"PFA the CPA report. This is an automated email.");
+	         
+	   multipart.addBodyPart(messageBodyPart);
+	   
+	   messageBodyPart = new MimeBodyPart();
+	   
+	   messageBodyPart = addAttachment(messageBodyPart, "C:/excel/CPA.xls","CPA_Recon_Report");
+
+	   multipart.addBodyPart(messageBodyPart);
+	   
+	   message.setContent(multipart);
+	    
+	   Transport.send(message);  
+	  
+	   System.out.println("message sent successfully");  
+	   
+	  } catch (MessagingException e) {
+		  	  e.printStackTrace();
+		  	  }  
+	   
+	 }  
+	}  
+
+
