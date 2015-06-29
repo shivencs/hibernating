@@ -1,0 +1,76 @@
+package package1;
+
+public class CpaTable {
+	private int id; 
+	private String Circle,AccNo,CustName;
+	private double OpenBal,Debit,Credit,CloseBal;  
+
+//getter methods
+public int getId() {  
+	    return id;  
+	}  
+	
+public String getCircle(){
+	return Circle;
+}
+
+public String getAccNo(){
+	return AccNo;
+}
+
+public String getCustName(){
+	return CustName;
+}
+
+public double getOpenBal(){
+	return OpenBal;
+}
+
+public double getDebit(){
+	return Debit;
+}
+
+public double getCredit(){
+	return Credit;
+}
+
+public double getCloseBal(){
+	return CloseBal;
+}
+
+//setter methods
+public void setId(int id) {  
+    this.id = id;  
+}  	
+
+public void setCircle(String Circle){
+	this.Circle = Circle;
+	}
+
+public void setAccNo(String AccNo){
+	this.AccNo = AccNo;
+	}
+
+public void setCustName(String CustName){
+	this.CustName = CustName;
+	}
+
+public void setOpenBal(double OpenBal){
+	this.OpenBal = OpenBal;
+	}
+
+public void setDebit(double Debit){
+	this.Debit = Debit;
+	}
+
+public void setCredit(double Credit){
+	this.Credit = Credit;
+	}
+
+public void setCloseBal(double CloseBal){
+	this.CloseBal = CloseBal;
+	}
+
+
+
+}
