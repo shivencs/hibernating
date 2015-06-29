@@ -1,0 +1,36 @@
+package package1;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.security.core.session.SessionRegistry;
+
+/**
+ * @author SHIVEN_S
+ *
+ */
+public final class SessionUtilities {
+	private static SessionFactory sessionFactory;
+	private static ServiceRegistry serviceRegistry;	
+	
+	public static void createSessionFactory() {	
+		Configuration cfg = new Configuration();
+		cfg.configure("hibernate.cfg.xml"); 
+	  	    serviceRegistry = new ServiceRegistryBuilder().applySettings(
+	            cfg.getProperties()). buildServiceRegistry();
+	    sessionFactory = cfg.buildSessionFactory(serviceRegistry);
+	    //return sessionFactory;
+	}
+	
+
+	public static SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+	
+
+	public static ServiceRegistry getServiceRegistry() {
+		return serviceRegistry;
+	}
+	
+}
