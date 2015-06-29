@@ -1,0 +1,38 @@
+package package1;
+import java.util.*;
+
+
+import package1.DataFetcher;
+import package1.ExcelMaker;
+import package1.MailSender;
+
+
+public class ManageCPA {
+	
+   private static int rownum;
+		
+	public static void main(String[] args) {
+		
+		try{
+		       SessionUtilities.createSessionFactory();
+		      }catch (Throwable ex) {
+		         System.err.println("Failed to create sessionFactory object." + ex);
+		         throw new ExceptionInInitializerError(ex); 
+		      }
+	      
+		      List<Object[]> groupList1= DataFetcher.fetchData("select Circle,AccNo,CustName,OpenBal,Debit,Credit,CloseBal from CpaTable where AccNo in (1000020473,1000020531,1000020597,1000020701,1000020723,1000000069,1000000149,1000000218,1000000296,1000000412,1000000489,1000000490,1000000592,1000000660,1000000751,1000000831,1000000842,1000000014,1000000138,1000000207,1000000274,1000000343,1000000401) order by customer_name,account_number");
+			    
+		      boolean discrepancy = ExcelMaker.CPAExcel(groupList1,rownum,"CPA");
+		      
+		      if(discrepancy == true){
+		      MailSender.SendAttachmentMail();
+		      }
+		} 
+	}
+		      
+		   
+		   
+
+
+		
+	
